@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/head :: header"></head>
+<title>Project Management</title>
+<body>
+<div class="dashboard-main-wrapper">
+    <div th:replace="/fragments/header :: header"></div>
+    <div th:replace="/fragments/left-sidebar :: left-sidebar"></div>
+    <div class="dashboard-wrapper">
+        <div class="dashboard-ecommerce">
+            <div class="container-fluid dashboard-content">
+                <div class="ecommerce-widget">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <section class="panel panel-transparent">
+                                <header class="panel-heading">
+                                    <h2 class="panel-title">User Create</h2>
+                                </header>
+                                <div class="panel-body">
+                                    <!-- ------------------------FORM START----------------------------- -->
+                                    <form method="post"
+                                          th:action="@{/user/update/{id}(id=${user.userName})}"
+                                          th:object="${user}"
+                                          class="needs-validation" no-validate>
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="firstName" class="col-form-label">First Name</label>
+                                                    <input id="firstName" type="text" placeholder="first name" th:field="*{firstName}" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="lastName" class="col-form-label">Last Name</label>
+                                                    <input id="lastName" type="text" placeholder="last name"  th:field="*{lastName}"class="form-control" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="inputEmail" class="col-form-label">Email Address</label>
+                                                    <input id="inputEmail" type="email" placeholder="name@example.com"  th:field="*{userName}"class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="mobileNumber" class="col-form-label">Mobile Number</label>
+                                                    <input id="mobileNumber" type="text" placeholder="phone number" th:field="*{phone}" class="form-control"
+                                                           pattern="^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="password" class="col-form-label">Password</label>
+                                                    <input id="password" type="password" class="form-control" th:field="*{password}"
+                                                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="confirm_password" class="col-form-label">Password Confirmation</label>
+                                                    <input id="confirm_password" type="password" class="form-control" th:field="*{password}"
+                                                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Gender</label><br>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" name="gender" value="FEMALE" th:field="*{gender}" class="custom-control-input" required>
+                                                        <span class="custom-control-label">Female</span>
+                                                    </label>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" name="gender" value="MALE" th:field="*{gender}" class="custom-control-input">
+                                                        <span class="custom-control-label">Male</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="roleId" class="col-form-label">Role</label>
+                                                    <select id="roleId" th:field="*{roleDTO.description}" class="custom-select" required="required">
+                                                        <option th:value="Select" th:text="Select"></option>
+                                                        <option th:each="theRole : ${roleList}" th:value="${theRole.description}" th:text="${theRole.description}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-8 col-md-8 col-lg-8">
+                                                <div class="float-right">
+                                                    <button class="btn btn-success rounded-0" type="submit">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <!-- ------------------------FORM END----------------------------- -->
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- ------------------------TABLE START----------------------------- -->
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-md-12">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    <h2 class="panel-title">User List</h2>
+                                </header>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <div class="form-group">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                            <thead class="bg-light">
+                                                            <tr class="border-0">
+                                                                <th class="border-0">Name</th>
+                                                                <th class="border-0">Email</th>
+                                                                <th class="border-0">Gender</th>
+                                                                <th class="border-0">Phone</th>
+                                                                <th class="border-0">Role</th>
+                                                                <th class="border-0">Action</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr th:each="theUser : ${userList}" >
+                                                                <td th:text="${theUser.firstName + ' ' +theUser.lastName}"></td>
+                                                                <td th:text="${theUser.userName}"></td>
+                                                                <td th:text="${theUser.gender}"></td>
+                                                                <td th:text="${theUser.phone}"></td>
+                                                                <td th:text="${theUser.roleDTO.description}"></td>
+                                                                <td class="actions">
+                                                                    <a th:href="@{/user/update/{id} (id = ${theUser.userName})}" class="btn btn-warning btn-sm">Update</a>
+                                                                    <a th:href="@{/user/delete/{id} (id = ${theUser.userName})}" class="btn btn-secondary btn-sm">Delete</a>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </div>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <!-- ------------------------TABLE END----------------------------- -->
+            </div>
+        </div>
+    </div>
+    <div th:replace="/fragments/footer :: footer"></div>
+</div>
+<div th:replace="/fragments/javascript :: js"></div>
+</body>
+</html>
